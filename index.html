@@ -130,9 +130,12 @@ function buildCalendar(year) {
       calendarContainer.appendChild(monthOuter);
 
       monthHeader.addEventListener('click', function (elem) {
-        const days = elem.target.parentNode.querySelectorAll('.day');
+        const parent = elem.target.parentNode;
+        const days = parent.querySelectorAll('.day');
+        const selected = parent.getAttribute('selected') == 'true';
+        parent.setAttribute('selected', selected ? false : true);
         days.forEach(d1 => {
-          d1.classList.toggle('selected');
+          selected ? d1.classList.remove('selected') : d1.classList.add('selected');
         });
         calc();
       });
@@ -166,7 +169,7 @@ function init () {
 <body>
   <div class="float">
     <select onChange="updateYear()" id="years"></select>
-    <span id="totalSelected">0</span>
+    <span id="totalSelected">0</span> day(s)
   </div>
 </body>
 
